@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Category
 
-class CategorySerilizer(serializers.Serializer):
+class CategorySerilizer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Category
-        field = ('name','description')
+        fields = ('name','description')
