@@ -48,7 +48,7 @@ def process_payment(request, id, token):
 
     result = gateway.transaction.sale({
         "amount" : amount_from_the_client,
-        "payment_method_nonce" : nonce_from_the_client
+        "payment_method_nonce" : nonce_from_the_client,
 
         "options" : {
             "submit_for_settlement" : True

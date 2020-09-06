@@ -1,5 +1,6 @@
 {
     "python.pythonPath": "C:\\Users\\Baljeet\\.virtualenvs\\Ecommerce-DjReact-ijDo92NT\\Scripts\\python.exe",
     "python.linting.pylintEnabled": true,
-    "python.linting.enabled": false
+    "python.linting.enabled": false,
+    "git.ignoreLimitWarning": true
 }
