@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageHelper from './helper/ImageHelper';
 import {Redirect} from 'react-router-dom';
-import { addItemToCart } from './helper/CartHelper';
+import { addItemToCart, removeItemFromCart } from './helper/CartHelper';
 
 // to do : handle this authentication from backend
 const isAuthenticated = true;
@@ -49,6 +49,7 @@ const Card = ({
         return ( removeFromCart && (
           <button
                 onClick={()=>{
+                  removeItemFromCart(product.id)
                   console.log("product removed");
                 }}
                 className="btn btn-block btn-outline-danger mt-2 mb-2"
