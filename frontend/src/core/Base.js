@@ -8,7 +8,7 @@ const Base = ({
 }) => {
   return (
     <div className="container-fluid">
-      <div className="jumbotron bg-white text-center text-black">
+      <div className="jumbotron bg-muted text-center text-black">
         <h1 className="display-4">{title}</h1>
         <p className="lead">{description}</p>
       </div>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {getProducts} from './helper/CoreApiCalls';
-import ImageHelper from './helper/ImageHelper';
 import Base from './Base';
+import Card from './Card';
 
 const Home  = () => {
 
@@ -24,16 +24,19 @@ const Home  = () => {
         loadAllProducts();
     }, []);
 
-    return ( <Base title="Baljeet T-shirt Store" description="Welcome to T-shirt Store!" >
-        <h1>Home Component</h1>
+    return ( 
+    <Base title="Baljeet T-shirt Store" description="Welcome to T-shirt Store!" >
+        <h1 className="text-center" >T-Shirts</h1>
+        <div className="row">
+
             {products.map((product, index)=>{
                 return ( 
-                <div key={index} >
-                <h1 >{product.name}</h1>
-                    <ImageHelper product={product}/>
+                    <div key={index} className="col-4 mb-4" >
+                    <Card product={product} />
                 </div>
                 )
             })}
+        </div>
     </Base>
      );
 }
