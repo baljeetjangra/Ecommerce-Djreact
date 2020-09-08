@@ -34,3 +34,42 @@ export const signin = (user) => {
     )
     .catch(err => console.log(err));
 }
+
+export const authenticate = (data, next) => {
+    if(typeof window !== undefined){
+        localStorage.getItem('jwt', JSON.stringify(data));
+        next();
+    }
+};
+
+export const isAuthenticated = () => {
+    if(typeof window == undefined){
+        return false;
+    }
+    if(localStorage.getItem('jwt')){
+        return JSON.parse(localStorage.getItem('jwt'));
+    }
+    else {
+        return false;
+    }
+};
+
+export const signout = next => {
+    const userId = isAuthenticated && isAuthenticated().user.id;
+
+    if(typeof window !== undefined){
+        localStorage.removeItem('jwt');
+        cartEmpty(()=>{})
+
+        return fetch(`${API}user/logout/${userId}`,{
+            method:'GET',
+        })
+        .then(res => {
+            console.log('Logout Successfully');
+            console.log(res);
+            next();
+        })
+        .catch(err => console.log(err)
+        )
+    }
+}
