@@ -25,10 +25,10 @@ def signin(request):
     
     #validation part
 
-    if not re('([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}', username):
+    if not re.match('[\w\.-]+@[\w\.-]+\.\w{2,4}', username):
         return JsonResponse({'error':'Enter a valid Email id'})
 
-    if len(password) >= 5:
+    if len(password) < 5:
         return JsonResponse({'error':'Password needs to be 5 Character long'})
     
     UserModel = get_user_model()

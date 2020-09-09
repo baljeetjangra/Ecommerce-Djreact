@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Base from '../core/Base';
 import {signup} from '../auth/helper/index';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
 
@@ -27,7 +28,7 @@ const Signup = () => {
         signup({name,email,password})
         .then( data =>{
             console.log(data);
-            if(data.email == email){
+            if(data.email === email){
                 setValues({
                     ...values,
                     name:'',
@@ -57,7 +58,7 @@ const Signup = () => {
                     <div className="alert alert-success"
                     style={{display: success ? "" : "none"}}
                     >
-                        Your Account has been created! Please Login Now.
+                        Your Account has been created! Please <Link to='/signin'> Login Now. </Link> 
                     </div>
                 </div>
             </div>
@@ -127,7 +128,6 @@ const Signup = () => {
             {successMessage()}
             {errorMessage()}
             {signUpForm()}
-            <p className="text-center">{JSON.stringify(values)}</p>
         </Base>
      );
 }
