@@ -135,7 +135,7 @@ const PaymentB = ({
                   >
                   </DropIn>
                   <button
-                    onClick={()=>{}}
+                    onClick={onPurchase}
                     className="btn btn-block btn-success"
                   >
                     Buy Now

@@ -56,7 +56,7 @@ def process_payment(request, id, token):
     })
 
     if result.is_success:
-        return JsonResponse({'success':result.is_success,'transaction':{'id':result.transaction.id, 'amount':result.taransaction.amount}
+        return JsonResponse({'success':result.is_success,'transaction':{'id':result.transaction.id, 'amount':result.transaction.amount}
         })
     else:
         return JsonResponse({'error':True, 'success':False})
