@@ -59,14 +59,17 @@ export const isAuthenticated = () => {
 };
 
 export const signout = next => {
-    const userId = isAuthenticated && isAuthenticated().user.id;
+    const userId = isAuthenticated() && isAuthenticated().user.id;
 
     if(typeof window !== undefined){
         localStorage.removeItem('jwt');
         cartEmpty(()=>{})
 
-        return fetch(`${API}user/logout/${userId}`,{
+        return fetch(`${API}user/logout/${userId}/`,{
             method:'GET',
+            headers:{
+                'X-Requested-With': 'XMLHttpRequest'
+              }
         })
         .then(res => {
             console.log('Logout Successfully');

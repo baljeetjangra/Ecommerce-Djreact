@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { signout } from '../auth/helper';
+import { signout, isAuthenticated } from '../auth/helper';
 
 const currentTab =(history, path) => {
     if(history.location.pathname == path){
@@ -22,26 +22,37 @@ const Menu = ({history, path}) => {
 
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav ml-auto">
-      <li className="nav-item active">
+      <li className="nav-item ">
         <Link style={currentTab(history,'/')} className="nav-link" to="/">Home</Link>
       </li>
-      <li className="nav-item active">
+      <li className="nav-item ">
         <Link style={currentTab(history,'/cart')} className="nav-link" to="/cart">Cart</Link>
       </li>
-      <li className="nav-item active">
-        <Link style={currentTab(history,'/dashboard')} className="nav-link" to="/user/dashboard">Dashboard</Link>
-      </li>
-      <li className="nav-item active">
+     {isAuthenticated() && (
+          <li className="nav-item ">
+          <Link style={currentTab(history,'/dashboard')} className="nav-link" to="/user/dashboard">Dashboard</Link>
+        </li>
+     )}
+      {!isAuthenticated() && (
+          <>
+          <li className="nav-item ">
         <Link style={currentTab(history,'/signup')} className="nav-link" to="/signup">Sign up</Link>
       </li>
-      <li className="nav-item active">
+      <li className="nav-item ">
         <Link style={currentTab(history,'/signin')} className="nav-link" to="/signin">Sign in</Link>
       </li>
-      <li className="nav-item active">
-        <span onClick={()=>{
-             signout(()=>{history.push('/')})
-        }} className="nav-link text-warning">Sign out</span>
-      </li>
+          </>
+      )}
+      
+      {isAuthenticated() && (
+          <li style={{cursor:'pointer'}} className="nav-item ">
+          <span onClick={()=>{
+               signout(()=>{
+                   history.push("/")
+            })
+    }} className="nav-link text-warning">Sign out</span>
+        </li> 
+      )}
       
     </ul>
   </div>

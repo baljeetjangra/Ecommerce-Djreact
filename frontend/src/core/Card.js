@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ImageHelper from './helper/ImageHelper';
 import {Redirect} from 'react-router-dom';
 import { addItemToCart, removeItemFromCart } from './helper/CartHelper';
+import { isAuthenticated } from '../auth/helper';
 
 // to do : handle this authentication from backend
-const isAuthenticated = true;
 
 
 
 const Card = ({
     product,
-    addToCart=true,
-    removeFromCart=false
+    addtoCart=true,
+    removeFromCart=false,
+    reload = undefined,
+    setReload = f => f
     }) => {
        const productTitle = product ? product.name : "T-shirt"
        const productDescription = product ? product.description : "A T-Shirt For Everyone!"
        const productPrice = product ? product.price : " "
 
-       addToCart = () => {
-        if(isAuthenticated){
-          addItemToCart(product,()=>{})
+       const [redirect, setRedirect] = useState(false)
+
+       const addToCart = () => {
+        if(isAuthenticated()){
+          addItemToCart(product,()=>setRedirect(true))
           console.log("add to cart");
         } else{
            console.log("Login Please!");
@@ -34,7 +38,7 @@ const Card = ({
 
       const showAddToCart = (addToCart) =>{
         return (
-          addToCart && (
+          addtoCart && (
           <button
           onClick={addToCart}
           className="btn btn-block btn-outline-success mt-2 mb-2"
@@ -51,6 +55,7 @@ const Card = ({
                 onClick={()=>{
                   removeItemFromCart(product.id)
                   console.log("product removed");
+                  setReload(!reload)
                 }}
                 className="btn btn-block btn-outline-danger mt-2 mb-2"
               >
@@ -64,6 +69,7 @@ const Card = ({
       <div className="card   border border-info ">
         <div className="card-header lead">{productTitle}</div>
         <div className="card-body">
+          {getAredirect(redirect)}
          <ImageHelper product={product} />
           <p className="lead font-weight-normal text-wrap">
             {productDescription}
